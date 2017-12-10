@@ -183,11 +183,11 @@ function my_form($form, $form_state) {
   {
     $options[$node->nid] = array
     ( 
-      array('from' => $terms[$node->field_i_from['und'][0]['tid']]->name),
-      array('to' => $terms[$node->field_i_to['und'][0]['tid']]->name),
-      array('recipient' => user_load($node->field_i_recipient['und'][0]['uid'])->name),
-      array('status' => $terms[$node->field_i_status['und'][0]['tid']]->name),
-      array('action' => ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style')),
+      array('data' => array('from' => $terms[$node->field_i_from['und'][0]['tid']]->name)),
+      array('data' => array('to' => $terms[$node->field_i_to['und'][0]['tid']]->name)),
+      array('data' => array('recipient' => user_load($node->field_i_recipient['und'][0]['uid'])->name)),
+      array('data' => array('status' => $terms[$node->field_i_status['und'][0]['tid']]->name)),
+      array('data' => array('action' => ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style'))),
     );
   }
   $form['table'] = array
