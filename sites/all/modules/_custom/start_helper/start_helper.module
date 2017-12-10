@@ -206,10 +206,11 @@ function my_form($form, $form_state) {
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
   $sql=$order['sql'];
+  dpm($sql);
   if($sort=='desc') {
 
     usort($rows, function($a, $b) use($sql) {
-    return $a['data'] > $b['data']? -1 : 1;
+    return $a[$sql] > $b[$sql]? -1 : 1;
 
   });
 
