@@ -35,8 +35,7 @@ function start_helper_menu() {
   return $items;
 }
 
-function render_invoices() {
-  drupal_add_js(drupal_get_path('module', 'start_helper') .'/js/start_helper.js', 'file');
+function render_invoices() { 
   ctools_include('modal');
   ctools_modal_add_js(); 
   _example_include_modal();
