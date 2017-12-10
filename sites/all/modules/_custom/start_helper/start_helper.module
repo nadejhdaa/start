@@ -207,10 +207,10 @@ function my_form($form, $form_state) {
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
   $sql=$order['sql'];  
-  $cifers = array('from', 'to', 'recipient', 'status');
+  $cifers = array('from' => 0, 'to' => 1, 'recipient' => 2, 'status' => 3);
 
   if($sort=='desc') { 
-    $key = (int)array_search($sql, $cifers);
+    $key = $cifers[$sql];
     dpm($key);
     usort($rows, function($a, $b) use($sql) { 
     return $a[$key]['data'] > $b[$key]['data']? -1 : 1;
@@ -219,7 +219,7 @@ function my_form($form, $form_state) {
 
   }
   if($sort=='asc') {
-    $key = (int)array_search($sql, $cifers);
+    $key = $cifers[$sql];
     dpm($key);
       usort($rows, function($a, $b) use ($sql) {
         return $a[$key]['data'] < $b[$key]['data']? -1 : 1;
