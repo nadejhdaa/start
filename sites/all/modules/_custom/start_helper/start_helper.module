@@ -189,6 +189,18 @@ function my_form($form, $form_state) {
   }
   
 
+  
+
+  $rows = array();
+  foreach ($tableData  as $key => $row)
+    {
+      $rows[$key] = array
+      ( 
+        array('data' => $row['from']) , array('data' => $row['to']), array('data' => $row['recipient']) , 
+        array('data' => $row['status']) , array('data' => $row['action']),
+      );
+    }
+
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
   $sql=$order['sql'];
@@ -206,16 +218,7 @@ function my_form($form, $form_state) {
       });
   }
 
-  $rows = array();
-  foreach ($tableData  as $key => $row)
-    {
-      $rows[$key] = array
-      ( 
-        array('data' => $row['from']) , array('data' => $row['to']), array('data' => $row['recipient']) , 
-        array('data' => $row['status']) , array('data' => $row['action']),
-      );
-    }
-
+  
   $form['table'] = array
   (
     '#type' => 'tableselect',
