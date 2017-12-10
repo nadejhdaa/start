@@ -210,9 +210,9 @@ function my_form($form, $form_state) {
   dpm($rows);
   dpm($sql);
   $cifers = array('from', 'to', 'recipient', 'status');
-  $c = array_search ($sql, $cifers);
-  dpm($c);
+
   if($sort=='desc') { 
+    $c = array_search ($sql, $cifers);
     usort($rows, function($a, $b) use($sql) { 
     return $a[$c]['data'] > $b[$c]['data']? -1 : 1;
 
@@ -220,6 +220,7 @@ function my_form($form, $form_state) {
 
   }
   if($sort=='asc') {
+    $c = array_search ($sql, $cifers);
       usort($rows, function($a, $b) use ($sql) {
         return $a[$c]['data'] < $b[$c]['data']? -1 : 1;
       });
