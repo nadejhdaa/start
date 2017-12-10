@@ -96,8 +96,9 @@ function _start_helper_make_create_link($link_text = '') {
     $link_text = 'Magical Modal';
   }
 
-  return '<div id="magical-modal-link">' . l($link_text, 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
-  return '<div id="magical-modal-link">' . l('edit', 'mymodule/nojs/3/edit', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
+  $output = '<div id="magical-modal-link">' . l($link_text, 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
+  $output .= '<div id="magical-modal-link">' . l('edit', 'mymodule/nojs/3/edit', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
+  return $output;
 }
 
 
