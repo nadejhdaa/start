@@ -177,17 +177,21 @@ function my_form($form, $form_state) {
     array('data' => 'Получатель',        'field' => 'recipient',               'sort' => 'ASC'),
     array('data' => 'Статус',        'field' => 'status',               'sort' => 'ASC'),
     array('data' => 'Действие',        'field' => 'action',               'sort' => 'ASC'),
+ 
   );
   $options = array();
-  foreach($nodes as $node)
+  foreach ($nodes as $node) {
+    $rows[$node->nid]['from'] = $terms[$node->field_i_from['und'][0]['tid']]->name,
+    $rows[$node->nid]['to'] = $terms[$node->field_i_to['und'][0]['tid']]->name,
+    $rows[$node->nid]['recipient'] = user_load($node->field_i_recipient['und'][0]['uid'])->name,
+    $rows[$node->nid]['status'] = $terms[$node->field_i_status['und'][0]['tid']]->name,
+    $rows[$node->nid]['action'] = ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style'),
+  }
+  foreach($rows as $key => $row)
   {
-    $options[$node->nid] = array
+    $options[$key] = array
     ( 
-      array('data' => array('from' => $terms[$node->field_i_from['und'][0]['tid']]->name)),
-      array('data' => array('to' => $terms[$node->field_i_to['und'][0]['tid']]->name)),
-      array('data' => array('recipient' => user_load($node->field_i_recipient['und'][0]['uid'])->name)),
-      array('data' => array('status' => $terms[$node->field_i_status['und'][0]['tid']]->name)),
-      array('data' => array('action' => ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style'))),
+      $row['from'],$row['to'],$row['recipient'],$row['status'],$row['action'],
     );
   }
   $form['table'] = array
