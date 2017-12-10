@@ -11,7 +11,7 @@ On the pages you put your link.
 function start_helper_menu() {
   $items = array();
 
-  $items['mymodule/page'] = array(
+  $items['mymodule/invoices'] = array(
     'page callback' => 'start_helper_page',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
@@ -48,11 +48,11 @@ function start_helper_callback($ajax) {
     $node = (object) array(
       'uid' => $user->uid, 
       'name' => (isset($user->name) ? $user->name : ''), 
-      'type' => 'mytype', 
+      'type' => 'invoice', 
       'language' => LANGUAGE_NONE,
       );
     $form_state = array(
-      'title' => t('Add my conten type'),
+      'title' => t('Add invoice'),
       'ajax' => TRUE,
     );
     $form_state['build_info']['args'] = array($node);
@@ -93,4 +93,3 @@ function _start_helper_make_link($link_text = '') {
 }
 
 
- 
