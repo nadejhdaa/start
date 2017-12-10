@@ -179,85 +179,12 @@ function formtable_theme() {
   );
 }
 
-function formtable_form_table_form($form = array(), &$form_state) {
-  $type = 'invoice';
-  $nodes = start_load_node_by_type($type);
-  $form['table'] = array(
-    // Theme this part of the form as a table.
-    '#theme' => 'formtable_form_table',
-    // Pass header information to the theme function.
-    '#header' => array(t('Column 1'), t('Column 2')),
-    // Rows in the form table.
-    'rows' => array(
-      // Make it a tree for easier traversing of the entered values on submission.
-      '#tree' => TRUE,
-      // First row.
-      'r1' => array(
-        'c1' => array(
-          '#type' => 'textfield',
-          '#title' => t('Row 1 Column 1')
-        ),
-        'c2' => array(
-          '#type' => 'textfield',
-          '#title' => t('Row 1 Column 2'),
-        ),
-      ),
-      // Second row.
-      'r2' => array(
-        'c1' => array(
-          '#type' => 'textfield',
-          '#title' => t('Row 2 Column 1')
-        ),
-        'c2' => array(
-          '#type' => 'textfield',
-          '#title' => t('Row 2 Column 2'),
-        ),
-      ),
-    ),
-  );
-
-  // Add a submit button for fun.
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Submit'),
-  );
-
-  return $form;
-}
-
-/**
- * Theme callback for the form table.
- */
-function theme_formtable_form_table(&$variables) {
-  // Get the userful values.
-  $form = $variables['form'];
-  $rows = $form['rows'];
-  $header = $form['#header'];
-
-  // Setup the structure to be rendered and returned.
-  $content = array(
-    '#theme' => 'table',
-    '#header' => $header,
-    '#rows' => array(),
-  );
-
-  // Traverse each row.  @see element_chidren().
-  foreach (element_children($rows) as $row_index) {
-    $row = array();
-    // Traverse each column in the row.  @see element_children().
-    foreach (element_children($rows[$row_index]) as $col_index) {
-      // Render the column form element.
-      $row[] = drupal_render($rows[$row_index][$col_index]);
-    }
-    // Add the row to the table.
-    $content['#rows'][] = $row;
-  }
-
-  // Redner the table and return.
-  return drupal_render($content);
-}
+ 
+ 
 
 function my_form($form, $form_state) {
+  $nodes = start_load_node_by_type($type);
+  dpm($nodes);
   $users = array
   (
     array('uid' => 1, 'first_name' => 'Indy', 'last_name' => 'Jones'),
@@ -271,12 +198,12 @@ function my_form($form, $form_state) {
     'last_name' => t('Last Name'),
   );
   $options = array();
-  foreach($users as $user)
+  foreach($nodes as $node)
   {
-    $options[$user['uid']] =array
+    $options[$node->nid] =array
     (
-      'first_name' => $user['first_name'],
-      'last_name' => $user['last_name'],
+      'first_name' => $node->title,
+      'last_name' => $node->field_i_from['und'][0]['tid'],
     );
   }
   $form['table'] = array
@@ -286,11 +213,24 @@ function my_form($form, $form_state) {
     '#options' => $options,
     '#empty' => t('No users found'),
   );
-  $form['submit'] = array
-  (
-    '#type' => 'submit',
-    '#value' => t('Submit'),
+  $form['actions'] = array( 
+    'action' => array(
+      '#type' => 'select',
+      '#options' => array(
+        'delete' => 'Удалить',
+        'unpublish' => 'Снять с публикации',
+      )
+    ),
+    'submit' => (
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    )
+    
   );
   return $form;
 
+}
+
+function my_form_submit(&$form, &$form_state) {
+  dpm($form_state);
 }
