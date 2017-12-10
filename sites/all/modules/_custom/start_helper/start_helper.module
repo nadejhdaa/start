@@ -213,10 +213,10 @@ function my_form($form, $form_state) {
   {
     $options[$node->nid] = array
     ( 
-      'from' => $terms[$node->field_i_from['und'][0]['tid']],
-      'to' => $terms[$node->field_i_from['und'][0]['tid']],
+      'from' => $terms[$node->field_i_from['und'][0]['tid']]->name,
+      'to' => $terms[$node->field_i_from['und'][0]['tid']]->name,
       'recipient' => user_load($node->field_i_recipient['und'][0]['uid'])->name,
-      'status' => $terms[$node->field_i_status['und'][0]['tid']],
+      'status' => $terms[$node->field_i_status['und'][0]['tid']]->name,
       'action' => '<div id="magical-modal-link">' . l('Редактировать', 'mymodule/nojs/'.$node->nid.'/edit', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>',
     );
   }
