@@ -80,7 +80,7 @@ function start_helper_callback($ajax) {
       // Закрываем модальное окно.
       $output[] = ctools_modal_command_dismiss();
     } 
-
+    
     if (!empty($form_state['ajax_commands'])) {
       $output = $form_state['ajax_commands'];
     }
@@ -180,8 +180,7 @@ function my_form($form, $form_state) {
       'to' => $terms[$node->field_i_to['und'][0]['tid']]->name,
       'recipient' => user_load($node->field_i_recipient['und'][0]['uid'])->name,
       'status' => $terms[$node->field_i_status['und'][0]['tid']]->name,
-      /*'action' => ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style'),*/
-      'action' => '<div id="magical-modal-link">' . l('Создать накладную', 'mymodule/nojs/'.$node->nid.'/edit', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>',
+      'action' => ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style'),
     );
   }
   $form['table'] = array
