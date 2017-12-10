@@ -11,7 +11,7 @@ On the pages you put your link.
 function start_helper_menu() {
   $items = array();
 
-  $items['mymodule/invoices'] = array(
+  $items['invoices'] = array(
     'page callback' => 'start_helper_page',
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
@@ -37,8 +37,14 @@ function start_helper_menu() {
 function start_helper_page() {
   // Load the modal library and add the modal javascript.
   ctools_include('modal');
-  ctools_modal_add_js();
-  return _start_helper_make_create_link('Magical modal');
+  ctools_modal_add_js(); 
+  $type = 'invoice';
+  $nodes = start_load_node_by_type($type);
+  $output = '<div id="magical-modal-link">' . l($link_text, 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
+  foreach ($node as $key => $node) {
+    $output .= $node->title;
+  }
+  return $output;
 }
 
 /**
@@ -113,7 +119,7 @@ function start_helper_edit_callback($ajax, $nid) {
 
     $node = node_load($nid);
     $form_state = array(
-      'title' => $nid . t('Edit "' . $node->title . '"'),
+      'title' => t('Edit'). ' ' . $node->title,
       'ajax' => TRUE,
     );
     $form_state['build_info']['args'] = array($node);
@@ -144,4 +150,16 @@ function start_helper_edit_callback($ajax, $nid) {
   }
 }
 
+
+function start_load_node_by_type($type) {
+   $nids = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->condition('type', $type, '=')
+    ->execute()
+    ->fetchCol();
+  
+  // Get all of the article nodes.
+  $nodes = node_load_multiple($nids);
+  return $nodes;
+}
 
