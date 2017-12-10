@@ -40,8 +40,8 @@ function start_helper_page() {
   ctools_modal_add_js(); 
   $type = 'invoice';
   $nodes = start_load_node_by_type($type);
-  $output = '<div id="magical-modal-link">' . l($link_text, 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
-  foreach ($node as $key => $node) {
+  $output = '<div id="magical-modal-link">' . l('Создать накладную', 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
+  foreach ($nodes as $key => $node) {
     $output .= $node->title;
   }
   return $output;
