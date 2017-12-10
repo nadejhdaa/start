@@ -283,19 +283,21 @@ function mymodule_change_invoice($nid, $action, &$context) {
   switch ($action) {
     case 'delete':
       node_delete($nid);
+      $context['message'] = 'Удалена <em>' . check_plain($node->title) . '</em>';
       break;
     
     case 'change_date':
       $node = node_load($nid);
       $node->created = REQUEST_TIME;
       node_save($node);
+      $context['message'] = 'Обновлена дата у <em>' . check_plain($node->title) . '</em>';
       break; 
   } 
  
   // Эта информация будет доступна в mymodule_batch_finished
   $context['results']['updated_nodes']++;
   // Сообщение выводимое под прогресс-баром после окончания текущей операции
-  $context['message'] = 'Обновлена дата у материала <em>' . check_plain($node->title) . '</em>';
+  
 }
  
 /**
