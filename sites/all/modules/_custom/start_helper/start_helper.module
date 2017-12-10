@@ -193,27 +193,16 @@ function my_form($form, $form_state) {
 
   $rows = array();
   
-  /*
+   
   foreach ($tableData  as $key => $row)
     {
       $rows[$key] = array
       ( 
-        array('from' => $row['from']) , array('data' => $row['to']), array('data' => $row['recipient']) , 
+        array('data' => $row['from']) , array('data' => $row['to']), array('data' => $row['recipient']) , 
         array('data' => $row['status']) , array('data' => $row['action']),
       );
     }
- */
-  foreach ($tableData  as $key => $row)
-    {
-      $rows[$key] = array
-      ( 
-        'data' => array('from' => $row['from']),
-        'data' => array('to' => $row['to']),
-        'data' => array('recipient' => $row['recipient']),
-        'status' => array('status' => $row['status']),
-        'action' => array('action' => $row['action']), 
-      );
-    }
+ 
  
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
