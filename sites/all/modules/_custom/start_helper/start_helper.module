@@ -191,7 +191,7 @@ function my_form($form, $form_state) {
   {
     $rows[$key] = array
     ( 
-      $row['from'],$row['to'],$row['recipient'],$row['status'],$row['action'],
+      array($row['from'] => 'test'),$row['to'],$row['recipient'],$row['status'],$row['action'],
     );
   }
   $form['table'] = array
