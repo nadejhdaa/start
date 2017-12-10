@@ -191,7 +191,20 @@ function my_form($form, $form_state) {
 
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
-  $tableData = my_array_sort($tableData, $order['sql'], $sort);
+  $sql=$order['sql'];
+  if($sort=='desc') {
+
+    usort($rows, function($a, $b) use($sql) {
+    return $a['data'][$sql] > $b['data'][$sql]? -1 : 1;
+
+  });
+
+  }
+  if($sort=='asc') {
+      usort($rows, function($a, $b) use ($sql) {
+        return $a['data'][$sql] < $b['data'][$sql]? -1 : 1;
+      });
+  }
 
   $rows = array();
   foreach ($tableData  as $key => $row)
