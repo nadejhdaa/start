@@ -209,14 +209,14 @@ function my_form($form, $form_state) {
   if($sort=='desc') {
 
     usort($rows, function($a, $b) use($sql) {
-    return $a['data'][$sql] > $b['data'][$sql]? -1 : 1;
+    return $a['data'] > $b['data']? -1 : 1;
 
   });
 
   }
   if($sort=='asc') {
       usort($rows, function($a, $b) use ($sql) {
-        return $a['data'][$sql] < $b['data'][$sql]? -1 : 1;
+        return $a['data'] < $b['data']? -1 : 1;
       });
   }
 
