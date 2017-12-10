@@ -191,8 +191,8 @@ function my_form($form, $form_state) {
   dpm($nodes); 
   $header = array
   (
-    'first_name' => t('First Name'),
-    'last_name' => t('Last Name'),
+    'first_name' => t('Откуда'),
+    'last_name' => t('Куда'),
   );
   $options = array();
   foreach($nodes as $node)
@@ -227,7 +227,57 @@ function my_form($form, $form_state) {
 }
 
 function my_form_submit(&$form, &$form_state) {
-  dpm($form_state);
+  dpm($form_state['values']);
+  foreach ($form_state['values']['table'] as $key => $value) {
+    if(!empty($value)) {
+      $operations[] = array('mymodule_change_date', array($key));
+    }
+  }
+  batch_set(array(
+    // Массив операций и их параметров
+    'operations' => $operations,
+    // Функция, которая будет выполнена после окончания всех операций
+    'finished' => 'mymodule_batch_finished',
+    // Заголовок страницы с прогресс баром.
+    // Опционально, по умолчанию t('Processing')
+    'title' => 'Обновление дат',
+    // Сообщение, показываемое при инициализации.
+    // Опционально, по умолчанию t('Initializing.')
+    'init_message' => 'Подготовка данных',
+    // Сообщение, показываемое при выполнении операций.
+    // Опционально, по умолчанию t('Completed @current of @total.')
+    'progress_message' => 'Выполнено @current из @total.',
+    // Сообщение показываемое при ошибке выполнения операции.
+    // Опционально, по умолчанию t('An error has occurred.')
+    'error_message' => 'Произошла ошибка.',
+  ));
+}
+
+/**
+ * Batch process callback.
+ */
+function mymodule_change_date($nid, &$context) {
+  // Производим манипуляции над нодами
+  $node = node_load($nid);
+  $node->created = REQUEST_TIME;
+  node_save($node);
+ 
+  // Эта информация будет доступна в mymodule_batch_finished
+  $context['results']['updated_nodes']++;
+  // Сообщение выводимое под прогресс-баром после окончания текущей операции
+  $context['message'] = 'Обновлена дата у материала <em>' . check_plain($node->title) . '</em>';
+}
+ 
+/**
+ * Batch finish callback.
+ */
+function mymodule_batch_finished($success, $results, $operations) {
+  if ($success) {
+    drupal_set_message('Обновлена дата у ' . $results['updated_nodes'] . ' материалов');
+  }
+  else {
+    drupal_set_message('Завершено с ошибками.', 'error');
+  }
 }
 
  
