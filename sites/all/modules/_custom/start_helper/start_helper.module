@@ -119,7 +119,7 @@ function start_helper_edit_callback($ajax, $nid) {
       'language' => LANGUAGE_NONE,
       );
     $form_state = array(
-      'title' => t('Add invoice'),
+      'title' => $nid . t('Add invoice'),
       'ajax' => TRUE,
     );
     $form_state['build_info']['args'] = array($node);
@@ -128,7 +128,7 @@ function start_helper_edit_callback($ajax, $nid) {
 
     $form_state = array(
       'ajax' => TRUE,
-      'title' => $nid .  t('MyModule Modal Form'),
+      'title' => t('MyModule Modal Form'),
     );
 
 
