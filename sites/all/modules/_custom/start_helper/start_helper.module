@@ -177,7 +177,7 @@ function start_load_node_by_type($type) {
   $query->innerJoin('taxonomy_term_data', 't', 't.tid = i.tid');
   $query->fields('t', array('tid','name'));
   $query->condition('i.nid', $nids, 'IN');
-  $terms = $query->execute()->fetchCol();
+  $terms = $query->execute()->fetchAllAssoc('tid');
   $data['terms'] = $terms;
   return $data;
 }
