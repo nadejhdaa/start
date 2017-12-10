@@ -176,7 +176,7 @@ function my_form($form, $form_state) {
     array('data' => 'Куда',        'field' => 'to',               ),
     array('data' => 'Получатель',        'field' => 'recipient',            ),
     array('data' => 'Статус',        'field' => 'status',               ),
-    array('data' => 'Действие',        'field' => 'action',           ),
+    array('data' => 'Действие',       ),
  
   );
   $options = array();
