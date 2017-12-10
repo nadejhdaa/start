@@ -173,10 +173,10 @@ function my_form($form, $form_state) {
   $header = array
   ( 
     array('data' => 'Откуда',        'field' => 'from',               'sort' => 'ASC'),
-    array('data' => 'Куда',        'field' => 'to',               'sort' => 'ASC'),
-    array('data' => 'Получатель',        'field' => 'recipient',               'sort' => 'ASC'),
-    array('data' => 'Статус',        'field' => 'status',               'sort' => 'ASC'),
-    array('data' => 'Действие',        'field' => 'action',               'sort' => 'ASC'),
+    array('data' => 'Куда',        'field' => 'to',               ),
+    array('data' => 'Получатель',        'field' => 'recipient',            ),
+    array('data' => 'Статус',        'field' => 'status',               ),
+    array('data' => 'Действие',        'field' => 'action',           ),
  
   );
   $options = array();
