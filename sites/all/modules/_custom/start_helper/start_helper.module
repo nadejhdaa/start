@@ -282,20 +282,19 @@ function mymodule_change_invoice($nid, $action, &$context) {
   
   switch ($action) {
     case 'delete':
-      node_delete($nid);
-      $context['message'] = 'Удалена <em>' . check_plain($node->title) . '</em>';
+      node_delete($nid); 
       break;
     
     case 'change_date':
       $node = node_load($nid);
       $node->created = REQUEST_TIME;
-      node_save($node);
-      $context['message'] = 'Обновлена дата у <em>' . check_plain($node->title) . '</em>';
+      node_save($node); 
       break; 
   } 
  
   // Эта информация будет доступна в mymodule_batch_finished
   $context['results']['updated_nodes']++;
+  $context['results']['action'] = $action;
   // Сообщение выводимое под прогресс-баром после окончания текущей операции
   
 }
@@ -304,8 +303,18 @@ function mymodule_change_invoice($nid, $action, &$context) {
  * Batch finish callback.
  */
 function mymodule_batch_finished($success, $results, $operations) {
+  //dpm($results['action']);
   if ($success) {
-    drupal_set_message('Обновлена дата у ' . $results['updated_nodes'] . ' материалов');
+    switch ($results['action']) {
+      case 'delete':
+        drupal_set_message('Удалено ' . $results['updated_nodes'] . ' накладных');
+        break;
+      
+      case 'change_date':
+        drupal_set_message('Обновлена дата у ' . $results['updated_nodes'] . ' накладных');
+        break;
+    }
+    
   }
   else {
     drupal_set_message('Завершено с ошибками.', 'error');
