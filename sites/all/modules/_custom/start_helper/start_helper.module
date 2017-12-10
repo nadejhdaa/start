@@ -78,7 +78,9 @@ function start_helper_callback($ajax) {
       $output[] = ajax_command_html('#messages-wrapper', theme('status_messages'));
 
       // Закрываем модальное окно.
+      $output[] = ctools_ajax_command_reload();
       $output[] = ctools_modal_command_dismiss();
+      $output[] = ctools_modal_form_render($form_state, $output);
     } 
 
     if (!empty($form_state['ajax_commands'])) {
