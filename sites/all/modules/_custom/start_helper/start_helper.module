@@ -32,13 +32,19 @@ function start_helper_menu() {
   );
 
    $items['formtable'] = array(
-    'title' => 'Form Table Example',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('my_form'),
+    'title' => 'Накладные',
+    'page callback' => 'render_invoices', 
     'access callback' => TRUE,
   );
 
   return $items;
+}
+
+function render_invoices() {
+  $output = 'test';
+  $table_form = drupal_get_form('my_form');
+  $output .= drupal_render($table_form);
+  return $output;
 }
 
 function start_helper_page() {
