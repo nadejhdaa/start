@@ -209,20 +209,16 @@ function my_form($form, $form_state) {
   $sql=$order['sql'];  
   $cifers = array('from' => 0, 'to' => 1, 'recipient' => 2, 'status' => 3);
 
-  if($sort=='desc') { 
-    $key = $cifers[$sql];
-    dpm($key);
+  if($sort=='desc') {  
     usort($rows, function($a, $b) use($sql) { 
-    return $a[$key]['data'] > $b[$key]['data']? -1 : 1;
+    return $a[$cifers[$sql]]['data'] > $b[$cifers[$sql]]['data']? -1 : 1;
 
   });
 
   }
-  if($sort=='asc') {
-    $key = $cifers[$sql];
-    dpm($key);
+  if($sort=='asc') { 
       usort($rows, function($a, $b) use ($sql) {
-        return $a[$key]['data'] < $b[$key]['data']? -1 : 1;
+        return $a[$cifers[$sql]]['data'] < $b[$cifers[$sql]]['data']? -1 : 1;
       });
   }
 
