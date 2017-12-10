@@ -208,7 +208,7 @@ function my_form($form, $form_state) {
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
   $sql = $order['sql'];  
-  dpm($order);
+  dpm($sort);
 
   if($sort=='desc') {  
     usort($rows, function($a, $b) use($sql) { 
