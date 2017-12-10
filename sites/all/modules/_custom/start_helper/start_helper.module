@@ -47,10 +47,7 @@ function start_helper_page() {
   ctools_modal_add_js(); 
   $type = 'invoice';
   $nodes = start_load_node_by_type($type);
-  $output = '<div id="magical-modal-link">' . l('Создать накладную', 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
-  foreach ($nodes as $key => $node) {
-    $rows[] .= $node->title;
-  }
+  $output = '<div id="magical-modal-link">' . l('Создать накладную', 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>'; 
   return $output;
 }
 
@@ -185,14 +182,7 @@ function formtable_theme() {
 function my_form($form, $form_state) {
   $type = 'invoice';
   $nodes = start_load_node_by_type($type);
-  dpm($nodes);
-  $users = array
-  (
-    array('uid' => 1, 'first_name' => 'Indy', 'last_name' => 'Jones'),
-    array('uid' => 2, 'first_name' => 'Darth', 'last_name' => 'Vader'),
-    array('uid' => 3, 'first_name' => 'Super', 'last_name' => 'Man'),
-  );
- 
+  dpm($nodes); 
   $header = array
   (
     'first_name' => t('First Name'),
@@ -228,6 +218,10 @@ function my_form($form, $form_state) {
    
   return $form;
 
+}
+
+function my_form_submit(&$form, &$form_state) {
+  dpm($form_state);
 }
 
  
