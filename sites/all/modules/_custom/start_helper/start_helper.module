@@ -171,12 +171,12 @@ function my_form($form, $form_state) {
   $terms = $data['terms'];
   //dpm($data); 
   $header = array
-  (
-    'from' => t('Откуда'),
-    'to' => t('Куда'),
-    'recipient' => t('Получатель'),
-    'status' => t('Статус'),
-    'action' => t('Действие'),
+  ( 
+    array('data' => 'Откуда',        'field' => 'from',               'sort' => 'ASC'),
+    array('data' => 'Куда',        'field' => 'to',               'sort' => 'ASC'),
+    array('data' => 'Получатель',        'field' => 'recipient',               'sort' => 'ASC'),
+    array('data' => 'Статус',        'field' => 'status',               'sort' => 'ASC'),
+    array('data' => 'Действие',        'field' => 'action',               'sort' => 'ASC'),
   );
   $options = array();
   foreach($nodes as $node)
