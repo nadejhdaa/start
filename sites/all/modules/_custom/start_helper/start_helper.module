@@ -142,8 +142,7 @@ function start_helper_edit_callback($ajax, $nid) {
 
 
 function start_load_node_by_type($type) {
-  $data = array();
-  $cifers = array('from' => 0, 'to' => 1, 'recipient' => 2, 'status' => 3);
+  $data = array(); 
   $nids = db_select('node', 'n')
     ->fields('n', array('nid'))
     ->condition('type', $type, '=')
@@ -192,9 +191,7 @@ function my_form($form, $form_state) {
 
   
 
-  $rows = array();
-  
-   
+  $rows = array(); 
   foreach ($tableData  as $key => $row)
     {
       $rows[$key] = array
