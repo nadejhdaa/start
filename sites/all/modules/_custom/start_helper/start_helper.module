@@ -197,8 +197,8 @@ function my_form($form, $form_state) {
     {
       $rows[$key] = array
       ( 
-        array('data' => $row['from']) , array('data' => $row['to']), array('data' => $row['recipient']) , 
-        array('data' => $row['status']) , array('data' => $row['action']),
+        array('from' => $row['from']) , array('to' => $row['to']), array('recipient' => $row['recipient']) , 
+        array('status' => $row['status']) , array('action' => $row['action']),
       );
     }
 
@@ -210,7 +210,7 @@ function my_form($form, $form_state) {
   if($sort=='desc') {
 
     usort($rows, function($a, $b) use($sql) {
-    return $a['data'][$sql] > $b['data'][$sql]? -1 : 1;
+    return $a[0]['data'][$sql] > $b[0]['data'][$sql]? -1 : 1;
 
   });
 
