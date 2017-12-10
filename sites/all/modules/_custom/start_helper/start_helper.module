@@ -224,7 +224,7 @@ function my_form($form, $form_state) {
   $form['actions']['submit'] = array(
     '#type' => 'submit',
       '#value' => t('Submit'),
-  )
+  );
    
   return $form;
 
