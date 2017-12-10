@@ -213,20 +213,18 @@ function my_form($form, $form_state) {
     '#options' => $options,
     '#empty' => t('No users found'),
   );
-  $form['actions'] = array( 
-    'action' => array(
-      '#type' => 'select',
-      '#options' => array(
-        'delete' => 'Удалить',
+  $form['actions']['select_action'] = array(
+    '#type' => 'select',
+    '#options' => array(
+      'delete' => 'Удалить',
         'unpublish' => 'Снять с публикации',
-      )
     ),
-    'submit' => (
-      '#type' => 'submit',
-      '#value' => t('Submit'),
-    )
-    
   );
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+      '#value' => t('Submit'),
+  )
+   
   return $form;
 
 }
