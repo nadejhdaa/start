@@ -204,11 +204,11 @@ function my_form($form, $form_state) {
  
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
-  $sql = $order['sql'];  
-  dpm($sort);
+  $sql = $order['sql'];   
 
   if($sort=='desc') {  
     usort($rows, function($a, $b) use($sql) { 
+      $cifers = array('from' => 0, 'to' => 1, 'recipient' => 2, 'status' => 3);
     return $a[$cifers[$sql]]['data'] > $b[$cifers[$sql]]['data']? -1 : 1;
 
   });
@@ -216,6 +216,7 @@ function my_form($form, $form_state) {
   }
   if($sort=='asc') { 
       usort($rows, function($a, $b) use ($sql) {
+        $cifers = array('from' => 0, 'to' => 1, 'recipient' => 2, 'status' => 3);
         return $a[$cifers[$sql]]['data'] < $b[$cifers[$sql]]['data']? -1 : 1;
       });
   }
