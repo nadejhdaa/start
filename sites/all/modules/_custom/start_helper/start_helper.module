@@ -130,6 +130,7 @@ function start_helper_edit_callback($ajax, $nid) {
       'ajax' => TRUE,
       'title' => t('MyModule Modal Form'),
     );
+    $output .= $nid;
 
       // Use ctools to generate ajax instructions for the browser to create
       // a form in a modal popup. 
