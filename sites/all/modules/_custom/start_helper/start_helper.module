@@ -97,8 +97,7 @@ function start_helper_callback($ajax) {
  
 /* вывод формы редактирования в модальном окне */
 function start_helper_edit_callback($ajax, $nid) {
-  global $user;  
-  ctools_include('ajax');
+  global $user;   
     ctools_include('modal');
     ctools_include('node.pages', 'node', ''); 
   // Create a blank node object here. You can also set values for your custom fields here as well.
@@ -110,22 +109,27 @@ function start_helper_edit_callback($ajax, $nid) {
     );
     $form_state['build_info']['args'] = array($node);
     // change this to your type node form
-    $commands = array();
-    $commands = ctools_modal_form_wrapper('invoice_node_form', $form_state);
+    $output = ctools_modal_form_wrapper('invoice_node_form', $form_state);
 
      if (!empty($form_state['executed'])) {
-      $commands = array();
+      $output = array();
        
       // Выводим сообщение об успешной отправке формы.
-      $commands[] = ajax_command_html('#messages-wrapper', theme('status_messages'));
+      $output = ajax_command_html('#messages-wrapper', theme('status_messages'));
 
       // Закрываем модальное окно.
-      $commands[] = ctools_modal_command_dismiss();
+      $output = ctools_modal_command_dismiss();
     }
      
 
       // Return the ajax instructions to the browser via ajax_render().
-    return array('#type' => 'ajax', '#commands' => $commands);
+    if (!empty($form_state['ajax_commands'])) {
+      $output = $form_state['ajax_commands'];
+    }
+
+      // Return the ajax instructions to the browser via ajax_render().
+    print ajax_render($output);
+    drupal_exit();
    
 }
 
