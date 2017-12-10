@@ -99,6 +99,8 @@ function start_helper_callback($ajax) {
 function start_helper_edit_callback($ajax, $nid) {
   global $user;   
     ctools_include('modal');
+    ctools_include('ajax');
+    ctools_add_js('ajax-responder');
     ctools_include('node.pages', 'node', ''); 
   // Create a blank node object here. You can also set values for your custom fields here as well.
 
@@ -119,6 +121,7 @@ function start_helper_edit_callback($ajax, $nid) {
 
       // Закрываем модальное окно.
       $output[] = ctools_modal_command_dismiss();
+
     }
      
 
