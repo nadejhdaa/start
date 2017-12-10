@@ -38,6 +38,7 @@ function start_helper_menu() {
 function render_invoices() {
   ctools_include('modal');
   ctools_modal_add_js(); 
+  _example_include_modal();
   $output = '<div id="magical-modal-link">' . l('Создать накладную', 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
   $table_form = drupal_get_form('my_form');
   $output .= drupal_render($table_form);
@@ -93,23 +94,11 @@ function start_helper_callback($ajax) {
   }
 }
 
-/*
-function _start_helper_make_create_link($link_text = '') {
-  // Set a default value if no text in supplied.
-  if (empty($link_text)) {
-    $link_text = 'Magical Modal';
-  }
-
-  $output = '<div id="magical-modal-link">' . l($link_text, 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
-  $output .= '<div id="magical-modal-link">' . l('edit', 'mymodule/nojs/3/edit', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>';
-  return $output;
-}
-
-*/
+ 
 /* вывод формы редактирования в модальном окне */
 function start_helper_edit_callback($ajax, $nid) {
-  global $user; 
-    ctools_include('ajax');
+  global $user;  
+  ctools_include('ajax');
     ctools_include('modal');
     ctools_include('node.pages', 'node', ''); 
   // Create a blank node object here. You can also set values for your custom fields here as well.
@@ -278,4 +267,37 @@ function mymodule_batch_finished($success, $results, $operations) {
   }
 }
 
- 
+function _example_include_modal() {
+
+  static $added = FALSE;
+  if ($added == FALSE) {
+    $added = TRUE;
+
+    // Include the CTools tools that we need.
+    ctools_include('modal');
+    ctools_include('ajax');
+    ctools_modal_add_js();
+    
+    // Создаем массив с настройками для модального окна.
+    $example_style = array(
+      'example-contact-style' => array(
+        'modalSize' => array(
+          'type' => 'fixed', // Тип модального окна. фиксированный или резиновый.
+          'width' => 420, // Ширина модального окна.
+          'height' => 'auto', // Высота модального окна.
+        ),
+        'modalOptions' => array(
+          'opacity' => (float) 0.3, // Прозрачность фона.
+          'background-color' => '#000000', // Цвет фона.
+        ),
+        'closeText' => '', // Текст для закрытия модального окна.
+        'loadingText' => '', // Текст, отображаемый в момент загрузки модального окна.
+        'animation' => 'fadeIn', // Эффект появления модального окна.
+        'animationSpeed' => 'fast', // Скорость анимации.
+      ),
+    );
+
+    // Подключаем настройки для модального окна.
+    drupal_add_js($example_style, 'setting');
+  }
+}
