@@ -193,7 +193,7 @@ function my_form($form, $form_state) {
 
   $rows = array();
   
-  
+  /*
   foreach ($tableData  as $key => $row)
     {
       $rows[$key] = array
@@ -202,19 +202,19 @@ function my_form($form, $form_state) {
         array('data' => $row['status']) , array('data' => $row['action']),
       );
     }
- /*
+ */
   foreach ($tableData  as $key => $row)
     {
       $rows[$key] = array
       ( 
-        'from' => $row['from'],
-        'to' => $row['to'],
-        'recipient' => $row['recipient'],
-        'status' => $row['status'],
-        'action' => $row['action'], 
+        'data' => array('from' => $row['from']),
+        'data' => array('to' => $row['to']),
+        'data' => array('recipient' => $row['recipient']),
+        'status' => array('status' => $row['status']),
+        'action' => array('action' => $row['action']), 
       );
     }
-*/
+ 
   $order = tablesort_get_order($header);
   $sort = tablesort_get_sort($header);
   $sql=$order['sql'];
