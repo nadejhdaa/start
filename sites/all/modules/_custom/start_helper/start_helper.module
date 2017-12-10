@@ -111,15 +111,9 @@ function start_helper_edit_callback($ajax, $nid) {
     ctools_include('node.pages', 'node', ''); 
   // Create a blank node object here. You can also set values for your custom fields here as well.
 
-    $node = (object) array(
-      'nid' => $nid,
-      'uid' => $user->uid, 
-      'name' => (isset($user->name) ? $user->name : ''), 
-      'type' => 'invoice', 
-      'language' => LANGUAGE_NONE,
-      );
+    $node = node_load($nid);
     $form_state = array(
-      'title' => $nid . t('Adfgdfgdd invoice'),
+      'title' => $nid . t('Edit "' . $node->title . '"'),
       'ajax' => TRUE,
     );
     $form_state['build_info']['args'] = array($node);
