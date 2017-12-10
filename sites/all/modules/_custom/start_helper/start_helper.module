@@ -36,7 +36,7 @@ function start_helper_menu() {
 }
 
 function render_invoices() {
-  drupal_add_js(drupal_get_path('module', 'start_helper') .'/start_helper.js', 'file');
+  drupal_add_js(drupal_get_path('module', 'start_helper') .'/js/start_helper.js', 'file');
   ctools_include('modal');
   ctools_modal_add_js(); 
   _example_include_modal();
