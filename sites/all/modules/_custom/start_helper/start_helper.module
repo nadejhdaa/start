@@ -120,7 +120,9 @@ function start_helper_edit_callback($ajax, $nid) {
       $output[] = ajax_command_html('#messages-wrapper', theme('status_messages'));
 
       // Закрываем модальное окно.
+      $output[] = ctools_ajax_command_reload();
       $output[] = ctools_modal_command_dismiss();
+      $output[] = ctools_modal_form_render($form_state, $output);
 
     }
      
