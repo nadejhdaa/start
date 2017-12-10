@@ -189,7 +189,7 @@ function my_form($form, $form_state) {
   }
   foreach($rows as $key => $row)
   {
-    $options[$key] = array
+    $rows[$key] = array
     ( 
       $row['from'],$row['to'],$row['recipient'],$row['status'],$row['action'],
     );
@@ -198,7 +198,7 @@ function my_form($form, $form_state) {
   (
     '#type' => 'tableselect',
     '#header' => $header,
-    '#options' => $options,
+    '#options' => $rows,
     '#empty' => t('No users found'),
   );
   $form['actions']['select_action'] = array(
