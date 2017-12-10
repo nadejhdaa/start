@@ -10,13 +10,7 @@ On the pages you put your link.
  */
 function start_helper_menu() {
   $items = array();
-
-  $items['invoices'] = array(
-    'page callback' => 'start_helper_page',
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
-
+ 
   $items['mymodule/%ctools_js/create'] = array(
     'page callback' => 'start_helper_callback',
     'page arguments' => array(1),
@@ -49,16 +43,7 @@ function render_invoices() {
   $output .= drupal_render($table_form);
   return $output;
 }
-
-function start_helper_page() {
-  // Load the modal library and add the modal javascript.
-  ctools_include('modal');
-  ctools_modal_add_js(); 
-  $type = 'invoice';
-  $nodes = start_load_node_by_type($type);
-  $output = '<div id="magical-modal-link">' . l('Создать накладную', 'mymodule/nojs/create', array('attributes' => array('class' => 'ctools-use-modal'))) . '</div>'; 
-  return $output;
-}
+ 
 
 /**
  * Ajax menu callback.
@@ -108,7 +93,7 @@ function start_helper_callback($ajax) {
   }
 }
 
-
+/*
 function _start_helper_make_create_link($link_text = '') {
   // Set a default value if no text in supplied.
   if (empty($link_text)) {
@@ -120,7 +105,7 @@ function _start_helper_make_create_link($link_text = '') {
   return $output;
 }
 
-
+*/
 /* вывод формы редактирования в модальном окне */
 function start_helper_edit_callback($ajax, $nid) {
   global $user;
@@ -143,7 +128,7 @@ function start_helper_edit_callback($ajax, $nid) {
       'ajax' => TRUE,
       'title' => t('MyModule Modal Form'),
     );
-
+    
 
       // Use ctools to generate ajax instructions for the browser to create
       // a form in a modal popup. 
@@ -153,6 +138,15 @@ function start_helper_edit_callback($ajax, $nid) {
     if (!empty($form_state['ajax_commands'])) {
       $output = $form_state['ajax_commands'];
     }
+    if (!empty($form_state['executed'])) {
+    $output = array();
+     
+    // Выводим сообщение об успешной отправке формы.
+    $output[] = ajax_command_html('#messages-wrapper', theme('status_messages'));
+
+    // Закрываем модальное окно.
+    $output[] = ctools_modal_command_dismiss();
+  }
 
       // Return the ajax instructions to the browser via ajax_render().
     print ajax_render($output);
@@ -182,15 +176,6 @@ function start_load_node_by_type($type) {
   $terms = $query->execute()->fetchAllAssoc('tid');
   $data['terms'] = $terms;
   return $data;
-}
-
-function formtable_theme() {
-  return array(
-    'formtable_form_table' => array(
-      // The renderable element is the form.
-      'render element' => 'form',
-    ),
-  );
 }
 
  
