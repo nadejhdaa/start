@@ -119,7 +119,7 @@ function start_helper_edit_callback($ajax, $nid) {
       'language' => LANGUAGE_NONE,
       );
     $form_state = array(
-      'title' => $nid . t('Add invoice'),
+      'title' => $nid . t('Adfgdfgdd invoice'),
       'ajax' => TRUE,
     );
     $form_state['build_info']['args'] = array($node);
