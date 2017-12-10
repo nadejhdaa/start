@@ -108,8 +108,7 @@ function _start_helper_make_create_link($link_text = '') {
 */
 /* вывод формы редактирования в модальном окне */
 function start_helper_edit_callback($ajax, $nid) {
-  global $user;
-  if ($ajax) {
+  global $user; 
     ctools_include('ajax');
     ctools_include('modal');
     ctools_include('node.pages', 'node', ''); 
@@ -122,39 +121,23 @@ function start_helper_edit_callback($ajax, $nid) {
     );
     $form_state['build_info']['args'] = array($node);
     // change this to your type node form
-    $output = ctools_modal_form_wrapper('invoice_node_form', $form_state);
+    $commands = array();
+    $commands = ctools_modal_form_wrapper('invoice_node_form', $form_state);
 
-    $form_state = array(
-      'ajax' => TRUE,
-      'title' => t('MyModule Modal Form'),
-    );
-    
+     if (!empty($form_state['executed'])) {
+      $commands = array();
+       
+      // Выводим сообщение об успешной отправке формы.
+      $commands[] = ajax_command_html('#messages-wrapper', theme('status_messages'));
 
-      // Use ctools to generate ajax instructions for the browser to create
-      // a form in a modal popup. 
-
-      // If the form has been submitted, there may be additional instructions
-      // such as dismissing the modal popup.
-    if (!empty($form_state['ajax_commands'])) {
-      $output = $form_state['ajax_commands'];
+      // Закрываем модальное окно.
+      $commands[] = ctools_modal_command_dismiss();
     }
-    if (!empty($form_state['executed'])) {
-    $output = array();
      
-    // Выводим сообщение об успешной отправке формы.
-    $output[] = ajax_command_html('#messages-wrapper', theme('status_messages'));
-
-    // Закрываем модальное окно.
-    $output[] = ctools_modal_command_dismiss();
-  }
 
       // Return the ajax instructions to the browser via ajax_render().
-    print ajax_render($output);
-    drupal_exit();
-  }
-  else {
-    return 'test';
-  }
+    return array('#type' => 'ajax', '#commands' => $commands);
+   
 }
 
 
