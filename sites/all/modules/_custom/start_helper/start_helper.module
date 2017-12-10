@@ -181,20 +181,28 @@ function my_form($form, $form_state) {
   );
   $options = array();
   foreach ($nodes as $node) {
-    $rows[$node->nid]['from'] = $terms[$node->field_i_from['und'][0]['tid']]->name;
-    $rows[$node->nid]['to'] = $terms[$node->field_i_to['und'][0]['tid']]->name;
-    $rows[$node->nid]['recipient'] = user_load($node->field_i_recipient['und'][0]['uid'])->name;
-    $rows[$node->nid]['status'] = $terms[$node->field_i_status['und'][0]['tid']]->name;
-    $rows[$node->nid]['action'] = ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style');
+    $tableData[$node->nid]['from'] = $terms[$node->field_i_from['und'][0]['tid']]->name;
+    $tableData[$node->nid]['to'] = $terms[$node->field_i_to['und'][0]['tid']]->name;
+    $tableData[$node->nid]['recipient'] = user_load($node->field_i_recipient['und'][0]['uid'])->name;
+    $tableData[$node->nid]['status'] = $terms[$node->field_i_status['und'][0]['tid']]->name;
+    $tableData[$node->nid]['action'] = ctools_modal_text_button(t('Редактировать'), 'mymodule/nojs/'.$node->nid.'/edit', t('Contact'), 'ctools-modal-example-contact-style');
   }
-  foreach($rows as $key => $row)
-  {
-    $rows[$key] = array
-    ( 
-      array('data' => $row['from']) , array('data' => $row['to']), array('data' => $row['recipient']) , 
-      array('data' => $row['status']) , array('data' => $row['action']),
-    );
-  }
+  
+
+  $order = tablesort_get_order($header);
+  $sort = tablesort_get_sort($header);
+  $tableData = my_array_sort($tableData, $order['sql'], $sort);
+
+  $rows = array();
+  foreach ($tableData  as $key => $row)
+    {
+      $rows[$key] = array
+      ( 
+        array('data' => $row['from']) , array('data' => $row['to']), array('data' => $row['recipient']) , 
+        array('data' => $row['status']) , array('data' => $row['action']),
+      );
+    }
+
   $form['table'] = array
   (
     '#type' => 'tableselect',
